@@ -211,8 +211,7 @@ let i=0,j=0,forward=true;
 const tw = document.getElementById('typewriter');
 setInterval(()=>{
   if(forward){ tw.textContent = words[i].slice(0,++j); if(j===words[i].length) forward=false; }
-  else{ tw.textContent = words[i].slice(0,--j); if(j===0){ i=(i+1)%words.length; forward=true; } } },150);
-},90);
+else{ tw.textContent = words[i].slice(0,--j); if(j===0){ i=(i+1)%words.length; forward=true; } } },150);
 
 /* Scroll reveal */
 const io = new IntersectionObserver(entries=>{
