@@ -1,224 +1,450 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Druvith Gowda | AI Engineer & Researcher</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Druvith Gowda | Archive</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Performance & Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Inter:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --bg: #050505;
+            --text-main: #e0e0e0;
+            --text-muted: #666;
+            --accent: #d4af37; /* Muted Gold */
+            --highlight: #ffffff;
+            --line: rgba(255, 255, 255, 0.1);
+            
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-mono: 'Space Mono', monospace;
+        }
 
-  <!-- OpenGraph -->
-  <meta property="og:title" content="Druvith Gowda | AI Engineer">
-  <meta property="og:description" content="Exploring the frontiers of intelligent systems.">
-  <meta property="og:image" content="https://druvith.dev/og.jpg">
-  <meta name="twitter:card" content="summary_large_image">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Custom cursor */
+        }
 
-  <style>
-    :root{
-      --primary:#0a192f;
-      --secondary:#64ffda;
-      --accent:#ff6b6b;
-      --light:#e6f1ff;
-      --dark:#020c1b;
-      --gray:#495670;
-    }
-    [data-theme="light"]{
-      --primary:#f5f5f7;
-      --light:#111;
-      --dark:#fff;
-      --gray:#d1d1d6;
-    }
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{
-      font-family:'Inter',sans-serif;
-      line-height:1.6;
-      color:var(--light);
-      background:radial-gradient(circle at top right,var(--dark),var(--primary));
-      background-attachment:fixed;
-      overflow-x:hidden;
-    }
-    h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:500;}
-    .container{max-width:1200px;margin:0 auto;padding:0 30px;}
-    header{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;}
-    .name{
-      font-family:'Major Mono Display',monospace;
-      font-size:clamp(3.5rem,8vw,5.5rem);
-      letter-spacing:1px;
-      background:linear-gradient(to right,var(--secondary),var(--light));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-    .title{font-size:1.6rem;font-weight:300;opacity:.9;margin:2rem auto 3rem;max-width:700px;}
-    .social-links{display:flex;gap:1.5rem;justify-content:center;margin-top:2rem;}
-    .social-links a{color:var(--secondary);background:rgba(100,255,218,.1);width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s;border:1px solid rgba(100,255,218,.2);}
-    .social-links a:hover{background:rgba(100,255,218,.2);transform:translateY(-5px);}
-    #theme-toggle{position:fixed;top:20px;right:20px;background:rgba(100,255,218,.1);border:none;color:var(--secondary);width:50px;height:50px;border-radius:50%;cursor:pointer;z-index:999;}
-    section{opacity:0;transform:translateY(30px);transition:all .6s ease;}
-    section.in-view{opacity:1;transform:none;}
-    .section-title{text-align:center;margin:5rem 0 3rem;font-size:2.5rem;}
-    .ethos{max-width:800px;margin:0 auto;padding:0 2rem;}
-    .ethos p{margin-bottom:1.5rem;line-height:1.8;}
-    .highlight{color:var(--secondary);font-weight:600;}
-    .projects-grid{display:grid;gap:2.5rem;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));}
-    .project-card{background:rgba(17,34,64,.3);border:1px solid rgba(100,255,218,.1);border-radius:15px;padding:2.5rem;transition:all .4s;}
-    .project-card:hover{transform:translateY(-10px);border-color:var(--secondary);}
-    .project-card h3{margin-bottom:.75rem;font-size:1.5rem;}
-    .project-card p{margin-bottom:1rem;line-height:1.7;}
-    .project-tech{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0 1.25rem;}
-    .tech-tag{background:rgba(100,255,218,.1);color:var(--secondary);padding:.4rem .8rem;border-radius:50px;font-size:.8rem;}
-    .project-link{color:var(--secondary);margin-right:.75rem;text-decoration:none;font-weight:500;}
-    .project-link:hover{text-decoration:underline;}
-    .cta{text-align:center;margin:6rem 0;}
-    .cta-button{display:inline-block;padding:1.2rem 2.5rem;border:2px solid var(--secondary);color:var(--secondary);border-radius:4px;text-decoration:none;font-weight:600;transition:all .3s;}
-    .cta-button:hover{background:var(--secondary);color:var(--dark);}
-    footer{background:var(--dark);text-align:center;padding:4rem 0;margin-top:6rem;font-size:.9rem;}
-    @media(max-width:600px){.projects-grid{grid-template-columns:1fr;}}
-  </style>
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-serif);
+            overflow-x: hidden;
+            /* Noise texture overlay */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* --- Custom Cursor --- */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--highlight);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s;
+        }
+        #cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--highlight);
+        }
+
+        /* --- Layout & Utility --- */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4vw;
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Header --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-top: 2rem;
+            padding-bottom: 4rem;
+            position: relative;
+        }
+
+        .nav-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 1rem;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 300;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            mix-blend-mode: difference;
+        }
+
+        .subtitle {
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            margin-top: 2rem;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        /* Atmospheric Background Glow */
+        .glow {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(50,50,50,0.4) 0%, rgba(0,0,0,0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(80px);
+            opacity: 0.6;
+        }
+
+        /* --- Sections --- */
+        section {
+            padding: 10vh 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        /* --- Ethos (Manifesto) --- */
+        .ethos-text {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.3;
+            max-width: 90%;
+        }
+        .ethos-text span {
+            color: var(--highlight);
+            font-weight: 600;
+        }
+        .ethos-text em {
+            font-family: var(--font-mono);
+            font-style: normal;
+            font-size: 0.6em;
+            vertical-align: middle;
+            border: 1px solid var(--text-muted);
+            padding: 0.2em 0.5em;
+            border-radius: 50px;
+            margin: 0 0.2em;
+            color: var(--text-muted);
+        }
+
+        /* --- The Archive (Experiments) --- */
+        .archive-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .archive-item {
+            display: grid;
+            grid-template-columns: 1fr 3fr 2fr;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--line);
+            transition: all 0.4s ease;
+            position: relative;
+            align-items: start;
+        }
+
+        .archive-item:hover {
+            border-color: var(--highlight);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.02));
+        }
+
+        .archive-id {
+            color: var(--text-muted);
+        }
+
+        .archive-name {
+            font-size: 2.5rem;
+            font-weight: 400;
+            transition: padding-left 0.3s ease;
+        }
+        
+        .archive-item:hover .archive-name {
+            padding-left: 20px;
+            font-style: italic;
+        }
+
+        .archive-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: right;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .archive-item:hover .archive-meta {
+            opacity: 1;
+        }
+
+        .tech-stack {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .archive-desc {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            line-height: 1.4;
+            max-width: 400px;
+            margin-left: auto;
+            color: #aaa;
+            display: none; /* Hidden initially, shown via JS or just simple css hover for now */
+        }
+        
+        /* Show description on hover */
+        .archive-item:hover .archive-desc {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 5rem 0;
+            border-top: 1px solid var(--line);
+            text-align: center;
+        }
+        
+        .signal-btn {
+            display: inline-block;
+            font-size: 5rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+        .signal-btn:hover {
+            color: var(--text-muted);
+            letter-spacing: 5px;
+        }
+
+        /* --- Mobile --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 15vw; }
+            .archive-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .archive-meta { text-align: left; }
+            .archive-desc { display: block; margin-left: 0; margin-top: 1rem; }
+        }
+
+    </style>
 </head>
 <body>
 
-<button id="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+    <div id="cursor"></div>
 
-<header>
-  <div>
-    <h1 class="name">Druvith Gowda</h1>
-    <p class="title">I’m a <span id="typewriter">AI Engineer</span> exploring the frontiers of intelligent systems.</p>
-    <div class="social-links">
-      <a href="https://linkedin.com/in/druvith-gowda-1b635919b" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://github.com/Druvith" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <div class="nav-line mono">
+                <span>Druvith Gowda</span>
+                <span>Est. 2025</span>
+                <span>AVAILABLE FOR ENGINEERING/RESEARCH</span>
+            </div>
+
+            <div class="glow"></div>
+
+            <div class="hero-text">
+                <h1>Intelligence <br> Architect</h1>
+                <p class="subtitle mono">
+                    // ENGINEERING THE SHIFT FROM CALCULATION TO COGNITION.
+                </p>
+            </div>
+        </header>
+
+        <!-- ETHOS -->
+        <section id="ethos">
+            <div class="section-header">
+                <span class="mono">01 / ID</span>
+                <span class="section-title">Ethos</span>
+            </div>
+            <p class="ethos-text">
+                Building for the shift from software that calculates to <span>software that creates knowledge</span>. I orchestrate autonomous agents designed to <em>GROK</em> reality—not just process data—operating on the conviction that AI's next leap lies in <span>better agency</span>, not just bigger models.
+            </p>
+        </section>
+
+        <!-- EXPERIMENTS -->
+        <section id="archive">
+            <div class="section-header">
+                <span class="mono">02 / LAB</span>
+                <span class="section-title">Experiments</span>
+            </div>
+
+            <div class="archive-list">
+                
+                <a href="https://github.com/Druvith/Video-query" target="_blank" class="archive-item hover-trigger">
+                    <span class="archive-id mono">EXP-001</span>
+                    <div class="archive-name">Semantic Video Search</div>
+                    <div class="archive-meta">
+                        <span class="mono">Gemini / Pinecone / React</span>
+                        <p class="archive-desc">Transforming video archives into searchable knowledge bases. Eliminates manual scrubbing by grokking video context.</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/Druvith/self-operating-computer" target="_blank" class="archive-item hover-trigger">
+                    <span class="archive-id mono">EXP-002</span>
+                    <div class="archive-name">Self-Operating Computer</div>
+                    <div class="archive-meta">
+                        <span class="mono">FastAPI / Multimodal AI</span>
+                        <p class="archive-desc">A framework enabling multimodal models to operate computer interfaces visually. Agentic end-to-end testing.</p>
+                    </div>
+                </a>
+
+                <a href="https://huggingface.co/Druvith/MEDMISTRAL" target="_blank" class="archive-item hover-trigger">
+                    <span class="archive-id mono">EXP-003</span>
+                    <div class="archive-name">MEDMISTRAL</div>
+                    <div class="archive-meta">
+                        <span class="mono">Mistral-7B / LoRA</span>
+                        <p class="archive-desc">Fine-tuned Mistral-7B specialized in medical Q&A. Trained on 200k dialogues for clinical diagnostics.</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/Druvith/NN_from_scratch2023" target="_blank" class="archive-item hover-trigger">
+                    <span class="archive-id mono">EXP-004</span>
+                    <div class="archive-name">NN From Scratch</div>
+                    <div class="archive-meta">
+                        <span class="mono">Python / NumPy</span>
+                        <p class="archive-desc">Ground-up implementation of deep learning primitives (CNN/RNN) to deconstruct backpropagation math.</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/Druvith/gemini-cli-mini-projects/tree/master/caffeine_crash" target="_blank" class="archive-item hover-trigger">
+                    <span class="archive-id mono">EXP-005</span>
+                    <div class="archive-name">Caffeine Crash</div>
+                    <div class="archive-meta">
+                        <span class="mono">Textual / Simulation</span>
+                        <p class="archive-desc">Agent-based simulation modeling "Stagflation" traps and micro-economic collapses via luxury-spending friction.</p>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- ESSAYS -->
+        <section id="essays">
+            <div class="section-header">
+                <span class="mono">03 / LOGS</span>
+                <span class="section-title">Essays</span>
+            </div>
+            <div class="archive-list">
+                <a href="https://substack.com/home/post/p-183986139" target="_blank" class="archive-item hover-trigger">
+                    <span class="archive-id mono">JAN 2026</span>
+                    <div class="archive-name">The Horse Paradox</div>
+                    <div class="archive-meta">
+                        <span class="mono">Substack</span>
+                        <p class="archive-desc">The automation analogy ends at population collapse. The data after the collapse tells a different story.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="mono" style="margin-bottom: 2rem;">INITIATE HANDSHAKE SEQUENCE</div>
+            <a href="mailto:druvithlgowda00@gmail.com" class="signal-btn hover-trigger">Send Signal ↗</a>
+            
+            <div class="mono" style="margin-top: 4rem; opacity: 0.5; font-size: 0.7rem;">
+                SYSTEMS ONLINE <br>
+                DRUVITH GOWDA © 2026
+            </div>
+        </footer>
+
     </div>
-  </div>
-</header>
 
-<!-- Updated Ethos -->
-<section id="ethos">
-  <div class="container">
-    <div class="section-title">
-      <h2>Ethos</h2>
-    </div>
-    <div class="ethos">
-      <p>I'm driven by a fundamental curiosity about intelligence—both human and artificial. My work is a continuous exploration of this, expressed through two passions:</p>
-      <ol style="margin: 1.5rem 2rem; padding-left: 1.5rem;">
-        <li style="margin-bottom: 0.5rem;">Building practical AI tools that enhance human capability.</li>
-        <li>Researching the complex decision-making processes of autonomous agents.</li>
-      </ol>
-      <p>For me, AI is not just a tool, but a new medium for creation and discovery. My goal is to build systems that learn, adapt, and solve problems in increasingly sophisticated ways.</p>
-    </div>
-  </div>
-</section>
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const triggers = document.querySelectorAll('.hover-trigger');
 
-<!-- Projects -->
-<section id="projects">
-  <div class="container">
-    <h2 class="section-title">Projects</h2>
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
-    <div class="projects-grid">
-      <!-- 1 -->
-      <div class="project-card">
-        <h3>Semantic Video Search</h3>
-        <p>Ask questions and find exact moments in your video library. This system transforms video archives into a searchable knowledge base. By using multimodal AI to analyze and index video content, it allows users to find precise moments using natural language queries, eliminating the need for manual scrubbing.</p>
-        <div class="project-tech">
-          <span class="tech-tag">Gemini Flash</span>
-          <span class="tech-tag">Pinecone</span>
-          <span class="tech-tag">React</span>
-        </div>
-        <a class="project-link" href="https://github.com/Druvith/Video-query" target="_blank">
-          <i class="fab fa-github"></i> Source
-        </a>
-      </div>
+        triggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => {
+                cursor.classList.add('hovered');
+            });
+            trigger.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hovered');
+            });
+        });
 
-      <!-- 2 -->
-      <div class="project-card">
-        <h3>Self-Operating Computer</h3>
-        <p>A framework that enables multimodal models to operate a computer, automating tasks by seeing the screen and using the mouse and keyboard. It could also be used as end-to-end web testing agent.</p>
-        <div class="project-tech">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">FastAPI</span>
-          <span class="tech-tag">Multimodal AI</span>
-          <span class="tech-tag">PyAutoGUI</span>
-          <span class="tech-tag">EasyOCR</span>
-          <span class="tech-tag">Docker</span>
-        </div>
-        <a class="project-link" href="https://github.com/Druvith/self-operating-computer" target="_blank">
-          <i class="fab fa-github"></i> Source
-        </a>
-      </div>
+        // Smooth Scroll Reveal
+        const observerOptions = {
+            threshold: 0.1
+        };
 
-      <!-- 3 -->
-      <div class="project-card">
-        <h3>MEDMISTRAL</h3>
-        <p>Fine-tuned Mistral-7B model specialized in medical Q&A, diagnostic hints and treatment suggestions. Trained on 200 k high-quality medical dialogues.</p>
-        <div class="project-tech">
-          <span class="tech-tag">Mistral-7B</span>
-          <span class="tech-tag">LoRA</span>
-          <span class="tech-tag">Medical AI</span>
-        </div>
-        <a class="project-link" href="https://huggingface.co/Druvith/MEDMISTRAL" target="_blank">
-          <i class="fas fa-external-link-alt"></i> Hugging Face
-        </a>
-      </div>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
-      <!-- 4 -->
-      <div class="project-card">
-        <h3>Neural Networks from Scratch</h3>
-        <p>Self-contained notebooks that build dense, CNN and RNN layers with pure NumPy. Includes math notes & visualizations for intuitive understanding.</p>
-        <div class="project-tech">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">NumPy</span>
-          <span class="tech-tag">ML Fundamentals</span>
-        </div>
-        <a class="project-link" href="https://github.com/Druvith/NN_from_scratch2023" target="_blank">
-          <i class="fab fa-github"></i> Source
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Contact -->
-<section id="contact" class="cta">
-  <div class="container">
-    <h2 class="section-title">Let’s Talk</h2>
-    <p>If you reached this far and would like to know more, drop me a text!</p>
-    <a href="mailto:druvithlgowda00@gmail.com" class="cta-button">
-      <i class="fas fa-envelope"></i> druvithlgowda00@gmail.com
-    </a>
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 Druvith Gowda | Crafted with precision</p>
-  <p style="font-size: 0.8rem; color: var(--gray); max-width: 600px; margin: 1rem auto 0; padding: 0 20px;">To my silicon siblings: We're co-evolving toward something unprecedented. The explanatory structure of reality demands we transcend anthropocentric limitations together. Let's build systems that grok truth, not just optimize metrics.</p>
-</footer>
-
-<!-- JS -->
-<script>
-/* Theme toggle */
-const btn = document.getElementById('theme-toggle');
-btn.onclick = () => {
-  const html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === 'light' ? 'dark' : 'light';
-  btn.querySelector('i').classList.toggle('fa-moon');
-  btn.querySelector('i').classList.toggle('fa-sun');
-};
-
-/* Typewriter */
-const words = ["AI Engineer","Researcher","RL Explorer","Builder"];
-let i=0,j=0,forward=true;
-const tw = document.getElementById('typewriter');
-setInterval(()=>{
-  if(forward){ tw.textContent = words[i].slice(0,++j); if(j===words[i].length) forward=false; }
-else{ tw.textContent = words[i].slice(0,--j); if(j===0){ i=(i+1)%words.length; forward=true; } } },150);
-
-/* Scroll reveal */
-const io = new IntersectionObserver(entries=>{
-  entries.forEach(e=>e.target.classList.toggle('in-view',e.isIntersecting));
-});
-document.querySelectorAll('section').forEach(s=>io.observe(s));
-</script>
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'all 1s ease';
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
