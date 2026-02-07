@@ -41,6 +41,22 @@
         }
 
         /* --- Custom Cursor --- */
+        #bg-art {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/25/Giovanni_Battista_Piranesi_-_The_Drawbridge_-_Google_Art_Project.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            /* Invert colors so the white paper becomes dark (blending with bg) and lines become light */
+            filter: invert(1) grayscale(100%) brightness(0.6) contrast(1.2);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
         #cursor {
             position: fixed;
             top: 0;
@@ -285,6 +301,7 @@
 </head>
 <body>
 
+    <div id="bg-art"></div>
     <div id="cursor"></div>
 
     <div class="container">
@@ -314,7 +331,7 @@
                 <span class="section-title">Ethos</span>
             </div>
             <p class="ethos-text">
-                Building for the shift from software that calculates to <span>software that creates knowledge</span>. I orchestrate autonomous agents designed to <em>GROK</em> reality—not just process data—operating on the conviction that AI's next leap lies in <span>better agency</span>, not just bigger models.
+                Building for the shift from software that processes data to <span>software that creates knowledge</span>. I orchestrate autonomous agents designed to <em>grok</em> reality, not just process data. I operate on the conviction that AI's next leap lies in <span>better agency</span>, not just bigger models.
             </p>
         </section>
 
@@ -329,9 +346,9 @@
                 
                 <a href="https://github.com/Druvith/Video-query" target="_blank" class="archive-item hover-trigger">
                     <span class="archive-id mono">EXP-001</span>
-                    <div class="archive-name">Semantic Video Search</div>
+                    <div class="archive-name">Video-indexing</div>
                     <div class="archive-meta">
-                        <span class="mono">Gemini / Pinecone / React</span>
+                        <span class="mono">Python / Gemini / ChromaDB / FFmpeg / React</span>
                         <p class="archive-desc">Transforming video archives into searchable knowledge bases. Eliminates manual scrubbing by grokking video context.</p>
                     </div>
                 </a>
@@ -369,6 +386,15 @@
                     <div class="archive-meta">
                         <span class="mono">Textual / Simulation</span>
                         <p class="archive-desc">Agent-based simulation modeling "Stagflation" traps and micro-economic collapses via luxury-spending friction.</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/Druvith/Interview-compass" target="_blank" class="archive-item hover-trigger">
+                    <span class="archive-id mono">EXP-006</span>
+                    <div class="archive-name">Interview Compass</div>
+                    <div class="archive-meta">
+                        <span class="mono">FastAPI / React / Gemini</span>
+                        <p class="archive-desc">Local-first video analysis workspace. Delivers rubric-based feedback on interview performance using multimodal AI agents.</p>
                     </div>
                 </a>
 
