@@ -4,91 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Druvith Gowda | Archive</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-family=%22serif%22 fill=%22%23141311%22>✛</text></svg>">
     
-    <!-- Fonts -->
+    <!-- Typography: Classical Garamond & Analytical Space Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg: #050505;
-            --text-main: #e0e0e0;
-            --text-muted: #666;
-            --accent: #d4af37; /* Muted Gold */
-            --highlight: #ffffff;
-            --line: rgba(255, 255, 255, 0.1);
+            /* Palette: Archival Vellum, Iron-Gall Ink, Copperplate Hairlines */
+            --bg-ground: #f7f4ed;
+            --bg-plate: #ede8dc;
+            --ink-primary: #141311;
+            --ink-secondary: #565147;
+            --ink-muted: #8a8477;
+            --ink-faint: rgba(20, 19, 17, 0.08);
+            --ink-ruled: rgba(20, 19, 17, 0.15);
+            --ink-active: rgba(20, 19, 17, 0.38);
+            --accent-patina: #8c6b38;
+            --accent-seal: #96482a;
             
-            --font-serif: 'Cormorant Garamond', serif;
+            --font-serif: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
             --font-mono: 'Space Mono', monospace;
+            
+            --ease-contemplative: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Custom cursor */
+            cursor: none;
+        }
+
+        ::selection {
+            background-color: #e3dcce;
+            color: var(--ink-primary);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-ground);
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text-main);
+            background-color: var(--bg-ground);
+            color: var(--ink-secondary);
             font-family: var(--font-serif);
             overflow-x: hidden;
-            /* Noise texture overlay */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* --- Custom Cursor --- */
+        /* --- Archival Paper Ground & Piranesi Plate Watermark --- */
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            background-color: var(--bg-ground);
+        }
+
+        /* Authentic Copperplate Etching (Dark ink on light rag paper) */
         #bg-art {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100vw;
             height: 100vh;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/25/Giovanni_Battista_Piranesi_-_The_Drawbridge_-_Google_Art_Project.jpg');
+            background-image: url('assets/bg-art.jpg');
             background-size: cover;
-            background-position: center;
-            z-index: -1;
-            /* Invert colors so the white paper becomes dark (blending with bg) and lines become light */
-            filter: invert(1) grayscale(100%) brightness(0.6) contrast(1.2);
-            opacity: 0.15;
+            background-position: center 36%;
+            z-index: -2;
+            filter: grayscale(100%) contrast(1.15) brightness(1.02);
+            opacity: 0.06;
+            mix-blend-mode: multiply;
             pointer-events: none;
+            transition: opacity 1.5s var(--ease-contemplative);
         }
 
-        #cursor {
+        /* Soft Reading-Light Aperture (Subtle paper sheen follows observer) */
+        #reading-light {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(
+                circle 700px at var(--light-x, 50vw) var(--light-y, 40vh),
+                rgba(255, 255, 255, 0.5) 0%,
+                rgba(247, 244, 237, 0) 70%
+            );
+            transition: opacity 0.8s ease;
+        }
+
+        /* Laid Rag Paper Grain Overlay */
+        #grain-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.038;
+            mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- The Observer Reticle (Aperture / Sākṣī) --- */
+        #cursor-dot {
             position: fixed;
             top: 0;
             left: 0;
-            width: 8px;
-            height: 8px;
-            background: var(--highlight);
+            width: 4px;
+            height: 4px;
+            background-color: var(--ink-primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s ease, opacity 0.3s ease;
+        }
+
+        #cursor-reticle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 28px;
+            height: 28px;
+            border: 1px solid rgba(20, 19, 17, 0.35);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-            transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
-        }
-        #cursor.hovered {
-            width: 24px;
-            height: 24px;
-            opacity: 0.6;
+            transition: width 0.35s var(--ease-contemplative), 
+                        height 0.35s var(--ease-contemplative), 
+                        border-color 0.35s ease, 
+                        background-color 0.35s ease;
         }
 
-        /* --- Layout & Utility --- */
-        .container {
-            max-width: 1400px;
+        #cursor-reticle.hovered {
+            width: 46px;
+            height: 46px;
+            border-color: rgba(20, 19, 17, 0.7);
+            background-color: rgba(20, 19, 17, 0.03);
+        }
+
+        /* --- Plate Frame & Scientific Registration Marks --- */
+        .plate-wrapper {
+            position: relative;
+            max-width: 1360px;
             margin: 0 auto;
-            padding: 0 4vw;
+            padding: 0 4.5vw;
+            border-left: 1px solid var(--ink-faint);
+            border-right: 1px solid var(--ink-faint);
+        }
+
+        /* Registration Crosshairs (+) */
+        .plate-wrapper::before,
+        .plate-wrapper::after {
+            content: "+";
+            position: absolute;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            pointer-events: none;
+            line-height: 1;
+        }
+        .plate-wrapper::before {
+            top: 1.25rem;
+            left: -0.38rem;
+        }
+        .plate-wrapper::after {
+            bottom: 1.25rem;
+            right: -0.38rem;
         }
 
         .mono {
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.14em;
+            color: var(--ink-muted);
+            font-variant-numeric: tabular-nums;
         }
 
         a {
@@ -96,14 +192,14 @@
             color: inherit;
         }
 
-        /* --- Header --- */
+        /* --- Header / Tractatus Frontispiece --- */
         header {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding-top: 2rem;
-            padding-bottom: 4rem;
+            padding-top: 2.5rem;
+            padding-bottom: 5rem;
             position: relative;
         }
 
@@ -111,88 +207,146 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--line);
-            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--ink-ruled);
+            padding-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .nav-channels {
+            display: flex;
+            gap: 0.85rem;
+            align-items: center;
+        }
+
+        .nav-channels a {
+            color: var(--ink-muted);
+            transition: color 0.3s ease;
+        }
+
+        .nav-channels a:hover {
+            color: var(--ink-primary);
+        }
+
+        .nav-channels .sep {
+            color: var(--ink-ruled);
+        }
+
+        .nav-line::after {
+            content: "✛";
+            position: absolute;
+            right: 50%;
+            bottom: -0.45rem;
+            transform: translateX(50%);
+            font-size: 0.6rem;
+            color: var(--ink-muted);
+            background: var(--bg-ground);
+            padding: 0 0.5rem;
         }
 
         .hero-text {
             position: relative;
             z-index: 2;
+            margin-top: auto;
+            margin-bottom: 2rem;
         }
 
         h1 {
-            font-size: clamp(4rem, 12vw, 10rem);
+            font-size: clamp(3.8rem, 11vw, 9.5rem);
             font-weight: 300;
-            line-height: 0.9;
-            letter-spacing: -0.02em;
-            mix-blend-mode: difference;
+            line-height: 0.92;
+            letter-spacing: -0.025em;
+            color: var(--ink-primary);
         }
 
         .subtitle {
-            font-family: var(--font-mono);
-            color: var(--text-muted);
-            margin-top: 2rem;
-            max-width: 400px;
-            line-height: 1.6;
+            margin-top: 2.25rem;
+            max-width: 480px;
+            line-height: 1.7;
+            color: var(--ink-secondary);
+            border-left: 1px solid var(--accent-patina);
+            padding-left: 1.25rem;
         }
 
-        /* Atmospheric Background Glow */
+        /* Ambient Substratum Radiance */
         .glow {
             position: absolute;
-            width: 60vw;
-            height: 60vw;
-            background: radial-gradient(circle, rgba(50,50,50,0.4) 0%, rgba(0,0,0,0) 70%);
-            top: 50%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(140, 107, 56, 0.05) 0%, rgba(247, 244, 237, 0) 70%);
+            top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 0;
             pointer-events: none;
             filter: blur(80px);
-            opacity: 0.6;
         }
 
-        /* --- Sections --- */
+        /* --- Sections (Continuous Epistemic Continuum) --- */
         section {
-            padding: 10vh 0;
-            border-top: 1px solid var(--line);
+            padding: 13vh 0 11vh 0;
+            border-top: 1px solid var(--ink-ruled);
+            position: relative;
+        }
+
+        /* Section Node Coordinate (+) */
+        section::before {
+            content: "+";
+            position: absolute;
+            top: -0.45rem;
+            left: -0.35rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--ink-muted);
+            background: var(--bg-ground);
+            line-height: 1;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 4rem;
+            margin-bottom: 4.5rem;
+            border-bottom: 1px solid var(--ink-faint);
+            padding-bottom: 0.85rem;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 1.9rem;
+            font-weight: 300;
             font-style: italic;
-            color: var(--text-muted);
+            color: var(--ink-primary);
+            letter-spacing: 0.02em;
         }
 
-        /* --- Ethos (Manifesto) --- */
+        /* --- Ethos (Non-Dual Principle & Agency) --- */
         .ethos-text {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            line-height: 1.3;
-            max-width: 90%;
+            font-size: clamp(1.85rem, 3.8vw, 3.25rem);
+            line-height: 1.38;
+            max-width: 92%;
+            font-weight: 300;
+            color: var(--ink-secondary);
         }
+        
         .ethos-text span {
-            color: var(--highlight);
-            font-weight: 600;
+            color: var(--ink-primary);
+            font-weight: 500;
         }
+        
         .ethos-text em {
             font-family: var(--font-mono);
             font-style: normal;
-            font-size: 0.6em;
-            vertical-align: middle;
-            border: 1px solid var(--text-muted);
-            padding: 0.2em 0.5em;
-            border-radius: 50px;
-            margin: 0 0.2em;
-            color: var(--text-muted);
+            font-size: 0.52em;
+            vertical-align: 0.25em;
+            border: 1px solid var(--ink-ruled);
+            padding: 0.25em 0.7em;
+            border-radius: 2px;
+            margin: 0 0.3em;
+            color: var(--accent-patina);
+            letter-spacing: 0.08em;
+            background: rgba(140, 107, 56, 0.05);
         }
 
-        /* --- The Archive (Experiments) --- */
+        /* --- The Archive (Empirical Experiments) --- */
         .archive-list {
             display: flex;
             flex-direction: column;
@@ -200,112 +354,283 @@
 
         .archive-item {
             display: grid;
-            grid-template-columns: 1fr 3fr 2fr;
-            padding: 2.5rem 0;
-            border-bottom: 1px solid var(--line);
-            transition: border-color 0.6s ease;
+            grid-template-columns: 120px 2.2fr 2fr;
+            padding: 2.75rem 0;
+            border-bottom: 1px solid var(--ink-faint);
             position: relative;
             align-items: start;
+            transition: border-color 0.4s var(--ease-contemplative),
+                        background-color 0.4s var(--ease-contemplative),
+                        padding-left 0.35s var(--ease-contemplative);
+        }
+
+        .archive-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--accent-patina);
+            transition: width 0.35s var(--ease-contemplative);
         }
 
         .archive-item:hover {
-            border-color: rgba(255,255,255,0.25);
+            border-bottom-color: var(--ink-active);
+            padding-left: 0.75rem;
+            background: linear-gradient(90deg, rgba(20, 19, 17, 0.02) 0%, transparent 100%);
+        }
+
+        .archive-item:hover::before {
+            width: 4px;
         }
 
         .archive-id {
-            color: var(--text-muted);
+            color: var(--ink-muted);
+            transition: color 0.4s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .archive-item:hover .archive-id {
+            color: var(--accent-patina);
         }
 
         .archive-name {
-            font-size: 2.5rem;
-            font-weight: 400;
-            transition: color 0.5s ease;
+            font-size: 2.35rem;
+            font-weight: 300;
+            color: var(--ink-primary);
+            transition: color 0.35s ease, transform 0.35s var(--ease-contemplative);
+            line-height: 1.15;
         }
 
         .archive-item:hover .archive-name {
-            color: var(--highlight);
+            color: #000000;
+            transform: translateX(4px);
         }
 
         .archive-meta {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.85rem;
             text-align: right;
-            opacity: 0.6;
-            transition: opacity 0.5s ease;
+            opacity: 0.8;
+            transition: opacity 0.4s ease;
         }
+
         .archive-item:hover .archive-meta {
-            opacity: 0.85;
+            opacity: 1;
         }
 
         .tech-stack {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            font-size: 0.72rem;
+            color: var(--ink-muted);
+            letter-spacing: 0.08em;
         }
 
         .archive-desc {
             font-family: var(--font-serif);
-            font-size: 1.1rem;
-            line-height: 1.4;
-            max-width: 400px;
+            font-size: 1.08rem;
+            line-height: 1.45;
+            max-width: 420px;
             margin-left: auto;
-            color: #aaa;
+            color: var(--ink-secondary);
             opacity: 0;
             max-height: 0;
             overflow: hidden;
-            transition: opacity 0.6s ease, max-height 0.6s ease;
+            transition: opacity 0.45s var(--ease-contemplative), 
+                        max-height 0.45s var(--ease-contemplative);
         }
 
         .archive-item:hover .archive-desc {
             opacity: 1;
-            max-height: 200px;
+            max-height: 220px;
         }
 
-        /* --- Footer --- */
+        /* --- Footer (Epilogue & Handshake Transmission) --- */
         footer {
-            padding: 5rem 0;
-            border-top: 1px solid var(--line);
+            padding: 8rem 0 5rem 0;
+            border-top: 1px solid var(--ink-ruled);
             text-align: center;
+            position: relative;
         }
-        
+
+        footer::before {
+            content: "+";
+            position: absolute;
+            top: -0.45rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            background: var(--bg-ground);
+            padding: 0 0.5rem;
+        }
+
+        .handshake-label {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2.5rem;
+            color: var(--ink-muted);
+        }
+
+        .handshake-label::before,
+        .handshake-label::after {
+            content: "—";
+            margin: 0 0.75rem;
+            color: var(--ink-faint);
+        }
+
         .signal-btn {
             display: inline-block;
-            font-size: 5rem;
+            font-size: clamp(2.8rem, 6.5vw, 4.8rem);
+            font-weight: 300;
             font-style: italic;
+            color: var(--ink-primary);
             margin-bottom: 2rem;
-            transition: color 0.5s ease, opacity 0.5s ease;
+            transition: color 0.4s ease, opacity 0.4s ease, transform 0.4s var(--ease-contemplative);
             font-variant-emoji: text;
-        }
-        .signal-btn:hover {
-            opacity: 0.6;
+            letter-spacing: -0.01em;
+            position: relative;
         }
 
-        /* --- Mobile --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 15vw; }
+        .signal-btn:hover {
+            color: #000000;
+            opacity: 0.75;
+            transform: translateY(-2px);
+        }
+
+        .social-relays {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            font-size: 0.76rem;
+            letter-spacing: 0.12em;
+        }
+
+        .relay-link {
+            color: var(--ink-secondary);
+            position: relative;
+            transition: color 0.3s ease;
+            padding-bottom: 2px;
+        }
+
+        .relay-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-patina);
+            transition: width 0.3s var(--ease-contemplative);
+        }
+
+        .relay-link:hover {
+            color: var(--ink-primary);
+        }
+
+        .relay-link:hover::after {
+            width: 100%;
+        }
+
+        .relay-sep {
+            color: var(--ink-ruled);
+            user-select: none;
+        }
+
+        .colophon {
+            margin-top: 4rem;
+            opacity: 0.6;
+            font-size: 0.7rem;
+            line-height: 1.8;
+            letter-spacing: 0.16em;
+            color: var(--ink-muted);
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 860px) {
+            * {
+                cursor: auto;
+            }
+            #cursor-dot, #cursor-reticle {
+                display: none;
+            }
+            .plate-wrapper {
+                padding: 0 6vw;
+                border-left: none;
+                border-right: none;
+            }
+            .nav-line {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+            .nav-line::after {
+                display: none;
+            }
+            .social-relays {
+                gap: 1.25rem;
+                flex-wrap: wrap;
+                margin-top: 0.75rem;
+            }
+            h1 {
+                font-size: 14vw;
+            }
             .archive-item {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 0.75rem;
+                padding: 2rem 0;
             }
-            .archive-meta { text-align: left; }
-            .archive-desc { opacity: 1; max-height: 200px; margin-left: 0; margin-top: 1rem; }
-            .signal-btn { font-size: 3rem; }
+            .archive-name {
+                font-size: 1.9rem;
+            }
+            .archive-meta {
+                text-align: left;
+            }
+            .archive-desc {
+                opacity: 1;
+                max-height: 250px;
+                margin-left: 0;
+                margin-top: 0.75rem;
+                color: var(--ink-secondary);
+            }
+            .signal-btn {
+                font-size: 2.4rem;
+            }
         }
-
     </style>
 </head>
 <body>
 
+    <!-- Archival Paper Canvas & Piranesi Plate -->
+    <div id="bg-canvas"></div>
     <div id="bg-art"></div>
-    <div id="cursor"></div>
+    <div id="reading-light"></div>
+    <div id="grain-overlay"></div>
 
-    <div class="container">
+    <!-- The Observer Reticle -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-reticle"></div>
+
+    <div class="plate-wrapper">
         
         <!-- HEADER -->
         <header>
             <div class="nav-line mono">
                 <span>Druvith Gowda</span>
-                <span>Est. 2025</span>
+                <div class="nav-channels">
+                    <a href="https://github.com/Druvith" target="_blank" rel="noopener noreferrer" class="hover-trigger">GH &#x2197;&#xFE0E;</a>
+                    <span class="sep">/</span>
+                    <a href="https://www.linkedin.com/in/druvith-gowda-1b635919b/" target="_blank" rel="noopener noreferrer" class="hover-trigger">LI &#x2197;&#xFE0E;</a>
+                    <span class="sep">/</span>
+                    <a href="https://x.com/dy_son716" target="_blank" rel="noopener noreferrer" class="hover-trigger">X &#x2197;&#xFE0E;</a>
+                </div>
                 <span>AVAILABLE FOR ENGINEERING/RESEARCH</span>
             </div>
 
@@ -314,7 +639,7 @@
             <div class="hero-text">
                 <h1>Intelligence <br> Architect</h1>
                 <p class="subtitle mono">
-                    // ENGINEERING THE SHIFT FROM CALCULATION TO COGNITION.
+                    // ENGINEERING THE SHIFT FROM COMPUTATION TO COGNITION.
                 </p>
             </div>
         </header>
@@ -326,7 +651,7 @@
                 <span class="section-title">Ethos</span>
             </div>
             <p class="ethos-text">
-                Building for the shift from software that processes data to <span>software that creates knowledge</span>. I orchestrate autonomous agents designed to <em>grok</em> reality, not just process data. I operate on the conviction that AI's next leap lies in <span>better agency</span>, not just bigger models.
+                Building for the shift from software that processes data to <span>software that creates knowledge</span>. Developing autonomous architectures that understand context, form intent, and <span>act with precision</span>.
             </p>
         </section>
 
@@ -343,7 +668,7 @@
                     <span class="archive-id mono">EXP-001</span>
                     <div class="archive-name">Video-indexing</div>
                     <div class="archive-meta">
-                        <span class="mono">Python / Gemini / ChromaDB / FFmpeg / React</span>
+                        <span class="tech-stack mono">Python / Gemini / ChromaDB / FFmpeg / React</span>
                         <p class="archive-desc">Transforming video archives into searchable knowledge bases. Eliminates manual scrubbing by grokking video context.</p>
                     </div>
                 </a>
@@ -352,7 +677,7 @@
                     <span class="archive-id mono">EXP-002</span>
                     <div class="archive-name">Self-Operating Computer</div>
                     <div class="archive-meta">
-                        <span class="mono">FastAPI / Multimodal AI</span>
+                        <span class="tech-stack mono">FastAPI / Multimodal AI</span>
                         <p class="archive-desc">A framework enabling multimodal models to operate computer interfaces visually. Agentic end-to-end testing.</p>
                     </div>
                 </a>
@@ -361,7 +686,7 @@
                     <span class="archive-id mono">EXP-003</span>
                     <div class="archive-name">NN From Scratch</div>
                     <div class="archive-meta">
-                        <span class="mono">Python / NumPy</span>
+                        <span class="tech-stack mono">Python / NumPy</span>
                         <p class="archive-desc">Ground-up implementation of deep learning primitives (CNN/RNN) to deconstruct backpropagation math.</p>
                     </div>
                 </a>
@@ -370,7 +695,7 @@
                     <span class="archive-id mono">EXP-004</span>
                     <div class="archive-name">Caffeine Crash</div>
                     <div class="archive-meta">
-                        <span class="mono">Textual / Simulation</span>
+                        <span class="tech-stack mono">Textual / Simulation</span>
                         <p class="archive-desc">Agent-based simulation modeling "Stagflation" traps and micro-economic collapses via luxury-spending friction.</p>
                     </div>
                 </a>
@@ -379,7 +704,7 @@
                     <span class="archive-id mono">EXP-005</span>
                     <div class="archive-name">PaperSight</div>
                     <div class="archive-meta">
-                        <span class="mono">FastAPI / Gemma 4 / Ollama / Vision</span>
+                        <span class="tech-stack mono">FastAPI / Gemma 4 / Ollama / Vision</span>
                         <p class="archive-desc">Offline-first clinical triage from paper intake forms. Vision LLM extracts patient data; deterministic rules assign priority scores without cloud dependency.</p>
                     </div>
                 </a>
@@ -398,7 +723,7 @@
                     <span class="archive-id mono">JAN 2026</span>
                     <div class="archive-name">The Horse Paradox</div>
                     <div class="archive-meta">
-                        <span class="mono">Substack</span>
+                        <span class="tech-stack mono">Substack</span>
                         <p class="archive-desc">The automation analogy ends at population collapse. The data after the collapse tells a different story.</p>
                     </div>
                 </a>
@@ -407,10 +732,19 @@
 
         <!-- FOOTER -->
         <footer>
-            <div class="mono" style="margin-bottom: 2rem;">INITIATE HANDSHAKE SEQUENCE</div>
+            <div class="handshake-label mono">INITIATE HANDSHAKE SEQUENCE</div>
+            <br>
             <a href="mailto:druvithlgowda00@gmail.com" class="signal-btn hover-trigger">Send Signal &#x2197;&#xFE0E;</a>
             
-            <div class="mono" style="margin-top: 4rem; opacity: 0.5; font-size: 0.7rem;">
+            <div class="social-relays mono">
+                <a href="https://github.com/Druvith" target="_blank" rel="noopener noreferrer" class="relay-link hover-trigger">[GH] GITHUB &#x2197;&#xFE0E;</a>
+                <span class="relay-sep">/</span>
+                <a href="https://www.linkedin.com/in/druvith-gowda-1b635919b/" target="_blank" rel="noopener noreferrer" class="relay-link hover-trigger">[LI] LINKEDIN &#x2197;&#xFE0E;</a>
+                <span class="relay-sep">/</span>
+                <a href="https://x.com/dy_son716" target="_blank" rel="noopener noreferrer" class="relay-link hover-trigger">[X] TWITTER &#x2197;&#xFE0E;</a>
+            </div>
+
+            <div class="colophon mono">
                 SYSTEMS ONLINE <br>
                 DRUVITH GOWDA © 2026
             </div>
@@ -419,27 +753,68 @@
     </div>
 
     <script>
-        // Custom Cursor Logic
-        const cursor = document.getElementById('cursor');
+        // --- The Observer Reticle & Reading-Light Inertia ---
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorReticle = document.getElementById('cursor-reticle');
         const triggers = document.querySelectorAll('.hover-trigger');
+        const root = document.documentElement;
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let reticleX = mouseX;
+        let reticleY = mouseY;
+        let isMoving = false;
 
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Immediate point of observation
+            if (cursorDot) {
+                cursorDot.style.left = `${mouseX}px`;
+                cursorDot.style.top = `${mouseY}px`;
+            }
+
+            // Update ambient paper reading light position
+            root.style.setProperty('--light-x', `${mouseX}px`);
+            root.style.setProperty('--light-y', `${mouseY}px`);
+
+            if (!isMoving) {
+                isMoving = true;
+                requestAnimationFrame(renderReticle);
+            }
         });
+
+        // Smooth Lerp for the outer aperture (Non-dual observer lag)
+        function renderReticle() {
+            const ease = 0.16;
+            reticleX += (mouseX - reticleX) * ease;
+            reticleY += (mouseY - reticleY) * ease;
+
+            if (cursorReticle) {
+                cursorReticle.style.left = `${reticleX}px`;
+                cursorReticle.style.top = `${reticleY}px`;
+            }
+
+            if (Math.abs(mouseX - reticleX) > 0.1 || Math.abs(mouseY - reticleY) > 0.1) {
+                requestAnimationFrame(renderReticle);
+            } else {
+                isMoving = false;
+            }
+        }
 
         triggers.forEach(trigger => {
             trigger.addEventListener('mouseenter', () => {
-                cursor.classList.add('hovered');
+                if (cursorReticle) cursorReticle.classList.add('hovered');
             });
             trigger.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hovered');
+                if (cursorReticle) cursorReticle.classList.remove('hovered');
             });
         });
 
-        // Smooth Scroll Reveal
+        // --- Contemplative Scroll Reveal ---
         const observerOptions = {
-            threshold: 0.1
+            threshold: 0.12
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -453,8 +828,8 @@
 
         document.querySelectorAll('section').forEach(section => {
             section.style.opacity = '0';
-            section.style.transform = 'translateY(16px)';
-            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            section.style.transform = 'translateY(18px)';
+            section.style.transition = 'opacity 1s var(--ease-contemplative), transform 1s var(--ease-contemplative)';
             observer.observe(section);
         });
     </script>
